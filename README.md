@@ -46,7 +46,7 @@ $ npm run test:cov
 
 ## Documentación de los Endpoints
 ```bash
-http://localhost:3000/auth/signup
+http://localhost:7000/auth/signup
 ```
 
 
@@ -55,7 +55,7 @@ Registra un nuevo usuario usando la API externa https://fakestoreapi.com/users.
 
 <b>URL</b>
 ```bash
-http://localhost:3000/auth/signup
+http://localhost:7000/auth/signup
 ```
 Método: <b>POST</b>
 
@@ -92,7 +92,7 @@ Inicia sesión con las credenciales del usuario y devuelve un token JWT que se u
 
 <b>URL</b>
 ```bash
-http://localhost:3000/auth/login
+http://localhost:7000/auth/login
 ```
 Método: <b>POST</b>
 
@@ -117,7 +117,7 @@ Headers
 
 <b>URL</b>
 ```bash
-http://localhost:3000/auth/products
+http://localhost:7000/auth/products
 ```
 Método: <b>GET</b>
 
