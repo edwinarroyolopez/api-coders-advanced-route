@@ -1,4 +1,4 @@
-import { Controller, Post, Get, UseGuards, Body } from '@nestjs/common';
+import { Controller, Post, Get, UseGuards, Body, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
@@ -21,4 +21,13 @@ export class AuthController {
   async getProducts() {
     return this.authService.getProducts();
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('products/:id')
+  async getProductById(@Param('id') id: string) {
+    return this.authService.getProductById(id);
+  }
+
 }
+
+

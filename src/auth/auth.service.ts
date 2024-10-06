@@ -1,9 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import axios from 'axios'; 
+import axios from 'axios';
 import { User } from './schemas/user.schema';
 
 @Injectable()
@@ -70,4 +70,14 @@ export class AuthService {
       throw new Error('Error fetching products');
     }
   }
+
+  async getProductById(id: string): Promise<any> {
+    try {
+      const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new NotFoundException('Producto no encontrado');
+    }
+  }
+
 }
