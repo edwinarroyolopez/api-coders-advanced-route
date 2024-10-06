@@ -165,7 +165,7 @@ Headers
 ```
 
 
-#### 4. Get Product By Id (Endpoint Protegido) (GET /auth/products)
+#### 4. Get Product By Id (Endpoint Protegido) (GET /auth/products/:id)
 
 <b>URL</b>
 ```bash
@@ -193,6 +193,89 @@ Headers
       }
   }
 ```
+
+
+
+
+#### 5. Dar "Me gusta" a un producto (Endpoint Protegido) (POST /auth/products/:id/like)
+
+<b>URL</b>
+```bash
+ http://localhost:7000/auth/products/:id/like
+```
+Método: <b>POST</b>
+
+Headers
+- Authorization: Bearer ```<access_token> ``` (Reemplaza ```<access_token> ``` con el token obtenido al hacer login).
+
+- Content-Type: <b>application/json</b>
+
+<b>Respuesta esperada (JSON) para : ``` http://localhost:7000/auth/products/2/like ```</b>
+```json
+    {
+       message: 'Producto marcado como me gusta'
+     }
+```
+
+
+#### 6. Quitar "Me gusta" a un producto (Endpoint Protegido) (DELETE /auth/products/:id/like)
+
+<b>URL</b>
+```bash
+ http://localhost:7000/auth/products/:id/like
+```
+Método: <b>DELETE</b>
+
+Headers
+- Authorization: Bearer ```<access_token> ``` (Reemplaza ```<access_token> ``` con el token obtenido al hacer login).
+
+- Content-Type: <b>application/json</b>
+
+<b>Respuesta esperada (JSON) para : ``` http://localhost:7000/auth/products/2/like ```</b>
+```json
+   {
+     message: 'Me gusta eliminado' 
+   }
+```
+
+
+
+#### 7. Dar "Me gusta" a un producto (Endpoint Protegido) (POST /auth/checkout)
+
+<b>URL</b>
+```bash
+ http://localhost:7000/auth/products/checkout
+```
+Método: <b>POST</b>
+
+Headers
+- Authorization: Bearer ```<access_token> ``` (Reemplaza ```<access_token> ``` con el token obtenido al hacer login).
+
+- Content-Type: <b>application/json</b>
+
+<b>body (JSON)</b>
+```json
+  {
+    "products": [
+      { "id": 1, "quantity": 2, "price": 50.0 },
+      { "id": 2, "quantity": 1, "price": 100.0 }
+    ],
+    "totalItems": 3,
+    "priceTotal": 200.0
+  }
+```
+
+
+
+<b>Respuesta esperada (JSON) para : ``` http://localhost:7000/auth/products/checkout```</b>
+```json
+  {
+      "message": "Venta realizada correctamente"
+  }
+```
+
+
+
 
 
 ## License

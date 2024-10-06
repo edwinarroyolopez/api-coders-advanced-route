@@ -5,11 +5,13 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import axios from 'axios';
 import { User } from './schemas/user.schema';
+import { Like } from './schemas/like.schema';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Like.name) private likeModel: Model<Like>,
     private jwtService: JwtService,
   ) { }
 
@@ -62,22 +64,52 @@ export class AuthService {
     };
   }
 
-  async getProducts(): Promise<any> {
+  async getProducts(userId: string): Promise<any> {
     try {
       const response = await axios.get('https://fakestoreapi.com/products');
-      return response.data;
+      const products = response.data;
+
+      // Agregar el estado de "me gusta" para cada producto
+      for (const product of products) {
+        const like = await this.likeModel.findOne({ userId, productId: product.id });
+        product.isLiked = !!like;
+      }
+
+      return products;
     } catch (error) {
       throw new Error('Error fetching products');
     }
   }
 
-  async getProductById(id: string): Promise<any> {
+  async getProductById(id: string, userId: string): Promise<any> {
     try {
       const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
-      return response.data;
+      const product = response.data;
+
+      // Verificar si el producto tiene "me gusta" por el usuario
+      const like = await this.likeModel.findOne({ userId, productId: id });
+      product.isLiked = !!like;
+
+      return product;
     } catch (error) {
       throw new NotFoundException('Producto no encontrado');
     }
+  }
+
+  // Método para dar "me gusta" a un producto
+  async likeProduct(userId: string, productId: string): Promise<any> {
+    const like = await this.likeModel.findOne({ userId, productId });
+    if (!like) {
+      const newLike = new this.likeModel({ userId, productId });
+      await newLike.save();
+    }
+    return { message: 'Producto marcado como me gusta' };
+  }
+
+  // Método para quitar "me gusta" de un producto
+  async unlikeProduct(userId: string, productId: string): Promise<any> {
+    await this.likeModel.deleteOne({ userId, productId });
+    return { message: 'Me gusta eliminado' };
   }
 
 }
