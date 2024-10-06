@@ -102,14 +102,22 @@ Headers
 <b>body (JSON)</b>
 ```json
   {
-      "username": "mor_2314",
+      "username": "ed",
       "password": "83r5^_"
   }
 ```
 <b>Respuesta esperada (JSON)</b>
 ```json
   {
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "user": {
+            "_id": "6702b4486184883d4c6522a2",
+            "email": "ed@gmail.com",
+            "username": "ed",
+            "name": "Ed",
+            "phone": "3016453022",
+            "__v": 0
+    }
   }
 ```
 

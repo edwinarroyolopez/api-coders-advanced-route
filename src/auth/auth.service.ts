@@ -52,10 +52,13 @@ export class AuthService {
       throw new UnauthorizedException('Contraseña incorrecta');
     }
 
+    const { password: _, ...userWithoutPassword } = user.toObject();
+
     // Generar el token JWT
     const payload = { username: user.username, sub: user._id };
     return {
       access_token: this.jwtService.sign(payload),
+      user: userWithoutPassword
     };
   }
 
