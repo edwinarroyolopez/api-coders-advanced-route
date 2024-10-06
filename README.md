@@ -240,7 +240,7 @@ Headers
 
 
 
-#### 7. Dar "Me gusta" a un producto (Endpoint Protegido) (POST /auth/checkout)
+#### 7. Enviar checkout (Endpoint Protegido) (POST /auth/checkout)
 
 <b>URL</b>
 ```bash
