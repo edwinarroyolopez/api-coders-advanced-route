@@ -80,8 +80,7 @@ Headers
     "id": 1,
     "email": "John@gmail.com",
     "username": "johnd",
-    "name": "John Doe"
-    },
+    "name": "John Doe",
     "phone": "1-570-236-7033"
   }
 ```
