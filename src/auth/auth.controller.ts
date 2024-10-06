@@ -4,7 +4,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Post('signup')
   async signup(@Body() userDto: any) {
@@ -17,9 +17,8 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('posts')
-  async getPosts() {
-    // Aquí iría la lógica para obtener los posts.
-    return { message: 'Aquí se retornarán los posts protegidos' };
+  @Get('products')
+  async getProducts() {
+    return this.authService.getProducts();
   }
 }
