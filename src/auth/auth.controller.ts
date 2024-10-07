@@ -48,10 +48,10 @@ export class AuthController {
     return this.authService.unlikeProduct(req.user.userId, id);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post('checkout')
-  async checkout(@Body() cartDto: CartDto, @Req() req) {
-    console.log({ path: 'checkout - controller', user: req.user})
+  async checkout(@Body() cartDto: CartDto) {
+    console.log({ path: 'checkout - controller'})
     // Verificar que totalItems y priceTotal coincidan con los productos del carrito
     const calculatedTotalItems = cartDto.products.reduce((sum, product) => sum + product.quantity, 0);
     const calculatedPriceTotal = cartDto.products.reduce((sum, product) => sum + product.quantity * product.price, 0);

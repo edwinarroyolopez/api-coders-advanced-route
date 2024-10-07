@@ -245,7 +245,7 @@ Headers
 
 <b>URL</b>
 ```bash
- http://localhost:7000/auth/products/checkout
+ http://localhost:7000/auth/checkout
 ```
 Método: <b>POST</b>
 
@@ -268,7 +268,7 @@ Headers
 
 
 
-<b>Respuesta esperada (JSON) para : ``` http://localhost:7000/auth/products/checkout```</b>
+<b>Respuesta esperada (JSON) para : ``` http://localhost:7000/auth/checkout```</b>
 ```json
   {
       "message": "Venta realizada correctamente"
