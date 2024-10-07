@@ -145,7 +145,8 @@ Headers
       "rating": {
         "rate": 3.9,
         "count": 120
-      }
+      },
+      "isLiked": true
     },
     {
       "id": 2,
@@ -189,7 +190,8 @@ Headers
       "rating": {
         "rate": 4.1,
         "count": 259
-      }
+      },
+      "isLiked": true
   }
 ```
 

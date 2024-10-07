@@ -21,12 +21,14 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('products')
   async getProducts(@Req() req) {
+    console.log({ path: 'getProducts - controller', user: req.user})
     return this.authService.getProducts(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('products/:id')
   async getProductById(@Param('id') id: string, @Req() req) {
+    console.log({ path: 'getProductById - controller', user: req.user})
     return this.authService.getProductById(id, req.user.userId);
   }
 
@@ -34,6 +36,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Post('products/:id/like')
   async likeProduct(@Param('id') id: string, @Req() req) {
+    console.log({ path: 'likeProduct - controller', user: req.user})
     return this.authService.likeProduct(req.user.userId, id);
   }
 
@@ -41,12 +44,14 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Delete('products/:id/like')
   async unlikeProduct(@Param('id') id: string, @Req() req) {
+    console.log({ path: 'unlikeProduct - controller', user: req.user})
     return this.authService.unlikeProduct(req.user.userId, id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('checkout')
-  async checkout(@Body() cartDto: CartDto) {
+  async checkout(@Body() cartDto: CartDto, @Req() req) {
+    console.log({ path: 'checkout - controller', user: req.user})
     // Verificar que totalItems y priceTotal coincidan con los productos del carrito
     const calculatedTotalItems = cartDto.products.reduce((sum, product) => sum + product.quantity, 0);
     const calculatedPriceTotal = cartDto.products.reduce((sum, product) => sum + product.quantity * product.price, 0);
