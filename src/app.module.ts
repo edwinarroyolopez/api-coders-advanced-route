@@ -13,7 +13,7 @@ const dbServer = "mongodb+srv://zeroedprogrammer:FrnnZSzyL9csqfCy@dev-test-riwi.
 
 @Module({
   imports: [
-    MongooseModule.forRoot(dbServer),
+    MongooseModule.forRoot(dbLocal),
     AuthModule,
   ],
   controllers: [],

@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import axios from 'axios';
 import { User } from './schemas/user.schema';
 import { Like } from './schemas/like.schema';
+import { use } from 'passport';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
 
   async signup(userDto: any): Promise<any> {
     try {
-      console.log({ userDto })
+      console.log({ path: 'signup', userDto })
       // Cifrar la contraseña antes de guardarla
       const salt = await bcrypt.genSalt(10);
       userDto.password = await bcrypt.hash(userDto.password, salt);
@@ -41,6 +42,8 @@ export class AuthService {
   async login(credentials: any): Promise<any> {
     const { username, password } = credentials;
 
+    console.log({ path: 'login', username, password })
+
     // Buscar al usuario por nombre de usuario
     const user = await this.userModel.findOne({ username });
 
@@ -58,6 +61,11 @@ export class AuthService {
 
     // Generar el token JWT
     const payload = { username: user.username, sub: user._id };
+
+    console.log({
+      access_token: this.jwtService.sign(payload),
+      user: userWithoutPassword
+    })
     return {
       access_token: this.jwtService.sign(payload),
       user: userWithoutPassword
@@ -74,7 +82,7 @@ export class AuthService {
         const like = await this.likeModel.findOne({ userId, productId: product.id });
         product.isLiked = !!like;
       }
-
+      console.log({ path: 'fetching products', userId, products: products.length })
       return products;
     } catch (error) {
       throw new Error('Error fetching products');
@@ -83,6 +91,8 @@ export class AuthService {
 
   async getProductById(id: string, userId: string): Promise<any> {
     try {
+      console.log({ path: 'getProductById', userId, productId: id })
+
       const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
       const product = response.data;
 
@@ -98,6 +108,7 @@ export class AuthService {
 
   // Método para dar "me gusta" a un producto
   async likeProduct(userId: string, productId: string): Promise<any> {
+    console.log({ path: 'likeProduct', userId, productId })
     const like = await this.likeModel.findOne({ userId, productId });
     if (!like) {
       const newLike = new this.likeModel({ userId, productId });
@@ -108,6 +119,7 @@ export class AuthService {
 
   // Método para quitar "me gusta" de un producto
   async unlikeProduct(userId: string, productId: string): Promise<any> {
+    console.log({ path: 'unlikeProduct', userId, productId })
     await this.likeModel.deleteOne({ userId, productId });
     return { message: 'Me gusta eliminado' };
   }

@@ -21,7 +21,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('products')
   async getProducts(@Req() req) {
-    return this.authService.getProducts(req.user.sub);
+    return this.authService.getProducts(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
