@@ -68,7 +68,6 @@ Headers
     "email": "john@gmail.com",
     "username": "johnd",
     "password": "m38rmF$",
-    "username": "johnd",
     "name": "John Doe"
     "phone": "1-570-236-7033"
   }
